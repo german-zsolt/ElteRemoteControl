@@ -1,0 +1,108 @@
+# Original file:
+# https://github.com/CxxTest/cxxtest/blob/master/sample/SCons/SConstruct
+
+Help("""
+  Targets, commands:
+    'scons debug' to build the debug program version.
+    'scons tests' to build CXX tests.
+    'scons check' to run CXX tests.
+    'scons release' to build the production program version.
+    'scons -c' to clean project, so it will completely delete 'build' folder.
+
+  'scons' works same as 'scons debug', release version should build manually.
+  The debug and release binaries differs only by debug symbols.
+
+  The release cannot build when the tests are fails or any errors/warnings
+  exists in the code, these criterions will checked by this script via
+  dependencies.
+
+  The generated objects and executables are in the 'build' folder.
+
+  DON'T SAVE ANY FILE IN THIS 'build' FOLDER,
+  BECAUSE THE 'scons clean' PROCES WILL DELETE THEM!
+
+  Output folders:
+    'build/debug' contains the debug program version.
+    'build/debug/obj' contains the object files of debug program version.
+    'build/release' contains the release program version.
+    'build/release/obj' contains the object files of release program version.
+    'build/tests' contains the program version used for tests.
+    'build/tests/obj' contains the CxxTest generated files.
+""")
+
+# Constants
+project_name = 'RemoteControl'
+release_dir = 'build/release/'
+debug_dir = 'build/debug/'
+test_dir = 'build/tests/'
+source_files = '*.cpp'
+test_files = '*.t.h'
+
+release_obj = release_dir + 'obj/'
+debug_obj = debug_dir + 'obj/'
+test_obj = test_dir + 'obj/'
+release_project = release_dir + project_name
+debug_project = debug_dir + project_name
+test_project = test_dir + project_name
+
+
+
+if GetOption('clean'):
+  # On clean action delete whole build directory
+  import os
+  if os.path.isdir("build"):
+    import shutil
+    shutil.rmtree('build')
+else:
+  # Make the CxxTestBuilder available
+  import imp
+  cxxtest = imp.load_source('cxxtest', 'build_tools/SCons/cxxtest.py')
+
+  # Configure common environment settings
+  env_debug = Environment()
+  env_debug.Append(CCFLAGS=['-std=c++14', '-Wall', '-Wextra', '-Werror', '-O3'])
+  env_debug.Append(CPPPATH=['include'])
+  env_release = env_debug.Clone()
+
+  # The debug and release version differs only by debug symbols.
+  env_debug.Append(CCFLAGS=['-g'])
+  env_release.Append(LINKFLAGS=['-s'])
+
+  # Add the CxxTestBuilder to testing build environment.
+  cxxtest.generate(env_debug)
+
+  # Create build dirs
+  env_release.VariantDir(release_obj, 'src', duplicate=0)
+  env_debug.VariantDir(debug_obj, 'src', duplicate=0)
+  env_debug.VariantDir(test_obj, 'tests', duplicate=0)
+
+  # Search source files
+  release_sources = env_release.Glob(release_obj + source_files)
+  debug_sources = env_debug.Glob(debug_obj + source_files)
+  test_sources = env_debug.Glob(test_obj + test_files)
+
+
+
+  # Build the 'debug' library, this contains debug symbols.
+  debug_lib = env_debug.SharedLibrary(debug_project, debug_sources)
+
+  # Create static library for unit testing.
+  test_lib = env_debug.StaticLibrary(test_project, debug_sources)
+  env_debug.Append(LIBS=test_lib)
+  test_exe = env_debug.CxxTest(test_sources)
+
+  # Build the 'release' library, this will stripped from debug symbols.
+  release_lib = env_release.SharedLibrary(release_project, release_sources)
+
+  # Create aliases for build
+  Alias("tests", test_exe)
+  Alias("debug", debug_lib)
+  Alias("release", release_lib)
+
+  # Never build release when debug program cannot build or the tests fails.
+  Depends(release_lib, debug_lib)
+  Depends(release_lib, 'check')
+
+  # Release should build manually.
+  Default(debug_lib)
+

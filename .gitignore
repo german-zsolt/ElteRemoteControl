@@ -1,28 +1,17 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Build directories
+/*/build
 
-# Precompiled Headers
-*.gch
-*.pch
+# SCons database
+.sconsign.dblite
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Python compiled code
+*.pyc
 
-# Fortran module files
-*.mod
+# Eclipse project files
+.settings
+.cproject
+.project
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# QT user file
+*.pro.user
 
-# Executables
-*.exe
-*.out
-*.app
