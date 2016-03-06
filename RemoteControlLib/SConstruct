@@ -60,7 +60,7 @@ else:
 
   # Configure common environment settings
   env_debug = Environment()
-  env_debug.Append(CCFLAGS=['-std=c++14', '-Wall', '-Wextra', '-Werror', '-O3'])
+  env_debug.Append(CCFLAGS=['-std=c++14', '-Wall', '-Wextra', '-Weffc++', '-Werror', '-O3'])
   env_debug.Append(CPPPATH=['include'])
   env_release = env_debug.Clone()
 
