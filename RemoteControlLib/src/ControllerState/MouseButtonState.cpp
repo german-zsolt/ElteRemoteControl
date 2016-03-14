@@ -1,12 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerState/MouseButtonState.h"
 
-#include "MouseButtonState.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerState {
 
-/**
- * MouseButtonState implementation
- */
+uint8 MouseButtonState::getControllerType() {
+	return 3;
+}
+
+}
+}

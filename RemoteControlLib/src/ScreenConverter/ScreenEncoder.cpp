@@ -1,21 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ScreenConverter/ScreenEncoder.h"
 
-#include "ScreenEncoder.h"
+namespace ElteRemoteControlLib {
+namespace NS_ScreenConverter {
 
-/**
- * ScreenEncoder implementation
- */
+uint8* ScreenEncoder::getData(shared_ptr<ScreenDiff> diff) {
+	return nullptr;
+}
 
-
-/**
- * @param diff
- * @return uint8*
- */
-static uint8* ScreenEncoder::getData(ScreenDiff diff) {
-    return null;
+}
 }

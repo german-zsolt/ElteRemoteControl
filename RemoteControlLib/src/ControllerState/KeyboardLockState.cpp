@@ -1,12 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerState/KeyboardLockState.h"
 
-#include "KeyboardLockState.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerState {
 
-/**
- * KeyboardLockState implementation
- */
+uint8 KeyboardLockState::getControllerType() {
+	return 2;
+}
+
+}
+}

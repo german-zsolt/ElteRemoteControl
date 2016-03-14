@@ -1,27 +1,21 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerListener/MouseListener.h"
 
-#include "MouseListener.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerListener {
 
-/**
- * MouseListener implementation
- */
-
-
-/**
- * @param converter
- */
-void MouseListener::MouseScanner(PositionConverter converter) {
+void MouseListener::MouseScanner(unique_ptr<PositionConverter> converter) {
 
 }
 
-/**
- * @param converter
- */
-void MouseListener::setPositionConverter(PositionConverter converter) {
+void MouseListener::setPositionConverter(unique_ptr<PositionConverter> converter) {
 
+}
+
+}
 }

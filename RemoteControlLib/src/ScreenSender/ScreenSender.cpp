@@ -1,34 +1,25 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ScreenSender/ScreenSender.h"
 
-#include "ScreenSender.h"
+namespace ElteRemoteControlLib {
+namespace NS_ScreenSender {
 
-/**
- * ScreenSender implementation
- */
-
-
-/**
- * @param dataSender
- */
-void ScreenSender::ScreenSender(DataSender dataSender) {
+ScreenSender::ScreenSender(shared_ptr<DataSender> dataSender) {
 
 }
 
-/**
- * @param screen
- */
-void ScreenSender::addScreen(ScreenScanner screen) {
+void ScreenSender::addScreen(shared_ptr<IScreenScanner> screen) {
 
 }
 
-/**
- * @param screen
- */
-void ScreenSender::removeScreen(ScreenScanner screen) {
+void ScreenSender::removeScreen(shared_ptr<IScreenScanner> screen) {
 
+}
+
+}
 }

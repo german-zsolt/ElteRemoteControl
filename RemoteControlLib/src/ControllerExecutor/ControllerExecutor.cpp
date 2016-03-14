@@ -1,20 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerExecutor/ControllerExecutor.h"
 
-#include "ControllerExecutor.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerExecutor {
 
-/**
- * ControllerExecutor implementation
- */
+void ControllerExecutor::doChange(uint8* data) {
 
+}
 
-/**
- * @param data
- */
-static void ControllerExecutor::doChange(uint8* data) {
-
+}
 }

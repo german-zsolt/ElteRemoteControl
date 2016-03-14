@@ -1,47 +1,29 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ClientServices/NetworkSender.h"
 
-#include "NetworkSender.h"
+namespace ElteRemoteControlLib {
+namespace NS_ClientServices {
 
-/**
- * NetworkSender implementation
- */
-
-
-/**
- * @param username
- * @return string
- */
 string NetworkSender::requestRemoteAccess(string username) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @return string
- */
 string NetworkSender::requestRemoteHelp(string username) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @param portTcp
- * @return string
- */
 string NetworkSender::acceptRemoteAccess(string username, int portTcp) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @param portTcp
- * @return string
- */
 string NetworkSender::acceptRemoteHelp(string username, int portTcp) {
-    return "";
+	return "";
+}
+
+}
 }

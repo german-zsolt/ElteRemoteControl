@@ -1,20 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ScreenDisplayer/ScreenDisplayer.h"
 
-#include "ScreenDisplayer.h"
+namespace ElteRemoteControlLib {
+namespace NS_ScreenDisplayer {
 
-/**
- * ScreenDisplayer implementation
- */
-
-
-/**
- * @param diff
- */
 void ScreenDisplayer::addDiff(ScreenDiff diff) {
 
+}
+
+}
 }

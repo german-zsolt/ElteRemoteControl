@@ -1,20 +1,13 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerState/ControllerState.h"
 
-#include "ControllerState.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerState {
 
-/**
- * ControllerState implementation
- */
-
-
-/**
- * @return uint8
- */
-static uint8 ControllerState::getControllerType() {
-    return null;
+}
 }

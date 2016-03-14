@@ -1,34 +1,25 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ScreenScanner/ScreenScanner.h"
 
-#include "ScreenScanner.h"
+namespace ElteRemoteControlLib {
+namespace NS_ScreenScanner {
 
-/**
- * ScreenScanner implementation
- */
-
-
-/**
- * @param sender
- */
-void ScreenScanner::ScreenSender(ScreenSender sender) {
+ScreenScanner::ScreenScanner(shared_ptr<ScreenSender> sender) {
 
 }
 
-/**
- * @return Screen
- */
-Screen ScreenScanner::getActualImage() {
-    return null;
+shared_ptr<Screen> ScreenScanner::getActualImage() {
+	return nullptr;
 }
 
-/**
- * @return ScreenDiff
- */
-ScreenDiff ScreenScanner::getDiff() {
-    return null;
+shared_ptr<ScreenDiff> ScreenScanner::getDiff() {
+	return nullptr;
+}
+
+}
 }

@@ -1,21 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerListener/PositionConverter.h"
 
-#include "PositionConverter.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerListener {
 
-/**
- * PositionConverter implementation
- */
+int16* PositionConverter::getPositionTarget(int16 positionOriginal[2]) {
+	return nullptr;
+}
 
-
-/**
- * @param positionOriginal
- * @return int16[]
- */
-int16[] PositionConverter::getPositionTarget(int16[] positionOriginal) {
-    return null;
+}
 }

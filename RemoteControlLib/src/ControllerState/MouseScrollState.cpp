@@ -1,12 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerState/MouseScrollState.h"
 
-#include "MouseScrollState.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerState {
 
-/**
- * MouseScrollState implementation
- */
+uint8 MouseScrollState::getControllerType() {
+	return 5;
+}
+
+}
+}

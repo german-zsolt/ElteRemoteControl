@@ -1,114 +1,65 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ClientServices/WebServices.h"
 
-#include "WebServices.h"
+namespace ElteRemoteControlLib {
+namespace NS_ClientServices {
 
-/**
- * WebServices implementation
- */
-
-
-/**
- * @return string[]
- */
-static string[] WebServices::generateSecurityKeys() {
-    return null;
+string* WebServices::generateSecurityKeys() {
+	return nullptr;
 }
 
-/**
- * @param username
- * @param password
- * @return string
- */
-string WebServices::register(string username, string password) {
-    return "";
+string WebServices::registerUser(string username, string password) {
+	return "";
 }
 
-/**
- * @return string
- */
-string WebServices::unRegister() {
-    return "";
+string WebServices::unregisterUser() {
+	return "";
 }
 
-/**
- * @param username
- * @param password
- * @param port
- * @return string
- */
 string WebServices::login(string username, string password, uint16 port) {
-    return "";
+	return "";
 }
 
-/**
- * @return string
- */
 string WebServices::refreshStatus() {
-    return "";
+	return "";
 }
 
-/**
- * @return string
- */
 string WebServices::logout() {
-    return "";
+	return "";
 }
 
-/**
- * @return string
- */
 string WebServices::getUser() {
-    return "";
+	return "";
 }
 
-/**
- * @return string
- */
 string WebServices::getContacts() {
-    return "";
+	return "";
 }
 
-/**
- * @param search
- * @return string
- */
 string WebServices::findContacts(string search) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @return string
- */
 string WebServices::addContact(string username) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @return string
- */
 string WebServices::acceptContact(string username) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @return string
- */
 string WebServices::blockContact(string username) {
-    return "";
+	return "";
 }
 
-/**
- * @param username
- * @return string
- */
 string WebServices::getConnectionData(string username) {
-    return "";
+	return "";
+}
+
+}
 }

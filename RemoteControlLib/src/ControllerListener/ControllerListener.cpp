@@ -1,27 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerListener/ControllerListener.h"
 
-#include "ControllerListener.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerListener {
 
-/**
- * ControllerListener implementation
- */
-
-
-/**
- * @param sender
- */
-void ControllerListener::ControllerListener(ControllerSender sender) {
+ControllerListener::ControllerListener(shared_ptr<ControllerSender> sender) {
 
 }
 
-/**
- * @return list<ControllerState>
- */
-virtual list<ControllerState> ControllerListener::getActualState() {
-    return null;
+}
 }

@@ -1,21 +1,17 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerConverter/ControllerEncoder.h"
 
-#include "ControllerEncoder.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerConverter {
 
-/**
- * ControllerEncoder implementation
- */
+uint8* ControllerEncoder::getData(shared_ptr<ControllerState> state) {
+	return nullptr;
+}
 
-
-/**
- * @param state
- * @return uint8*
- */
-static uint8* ControllerEncoder::getData(ControllerState state) {
-    return null;
+}
 }

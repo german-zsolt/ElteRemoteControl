@@ -1,34 +1,25 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerSender/ControllerSender.h"
 
-#include "ControllerSender.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerSender {
 
-/**
- * ControllerSender implementation
- */
-
-
-/**
- * @param dataSender
- */
-void ControllerSender::ControllerSender(DataSender dataSender) {
+ControllerSender::ControllerSender(shared_ptr<DataSender> dataSender) {
 
 }
 
-/**
- * @param listener
- */
-void ControllerSender::addListener(ControllerListener listener) {
+void ControllerSender::addListener(shared_ptr<IControllerListener> listener) {
 
 }
 
-/**
- * @param change
- */
-void ControllerSender::addChange(ControllerState change) {
+void ControllerSender::addChange(shared_ptr<ControllerState> change) {
 
+}
+
+}
 }

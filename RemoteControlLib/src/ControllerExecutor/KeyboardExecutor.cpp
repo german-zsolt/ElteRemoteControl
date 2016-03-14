@@ -1,27 +1,21 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerExecutor/KeyboardExecutor.h"
 
-#include "KeyboardExecutor.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerExecutor {
 
-/**
- * KeyboardExecutor implementation
- */
-
-
-/**
- * @param changes
- */
-static void KeyboardExecutor::doChanges(KeyboardButtonState changes) {
+void KeyboardExecutor::doChanges(shared_ptr<KeyboardButtonState> changes) {
 
 }
 
-/**
- * @param changes
- */
-static void KeyboardExecutor::doChanges(KeyboardLockState changes) {
+void KeyboardExecutor::doChanges(shared_ptr<KeyboardLockState> changes) {
 
+}
+
+}
 }

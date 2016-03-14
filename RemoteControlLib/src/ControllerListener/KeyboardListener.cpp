@@ -1,12 +1,13 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerListener/KeyboardListener.h"
 
-#include "KeyboardListener.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerListener {
 
-/**
- * KeyboardListener implementation
- */
+}
+}

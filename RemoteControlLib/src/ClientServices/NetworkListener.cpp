@@ -1,12 +1,13 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ClientServices/NetworkListener.h"
 
-#include "NetworkListener.h"
+namespace ElteRemoteControlLib {
+namespace NS_ClientServices {
 
-/**
- * NetworkListener implementation
- */
+}
+}

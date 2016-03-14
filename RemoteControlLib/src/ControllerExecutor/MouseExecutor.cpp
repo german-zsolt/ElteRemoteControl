@@ -1,34 +1,25 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ControllerExecutor/MouseExecutor.h"
 
-#include "MouseExecutor.h"
+namespace ElteRemoteControlLib {
+namespace NS_ControllerExecutor {
 
-/**
- * MouseExecutor implementation
- */
-
-
-/**
- * @param changes
- */
-static void MouseExecutor::doChanges(MouseButtonState changes) {
+void MouseExecutor::doChanges(shared_ptr<MouseButtonState> changes) {
 
 }
 
-/**
- * @param changes
- */
-static void MouseExecutor::doChanges(MousePositionState changes) {
+void MouseExecutor::doChanges(shared_ptr<MousePositionState> changes) {
 
 }
 
-/**
- * @param changes
- */
-static void MouseExecutor::doChanges(MouseScrollState changes) {
+void MouseExecutor::doChanges(shared_ptr<MouseScrollState> changes) {
 
+}
+
+}
 }

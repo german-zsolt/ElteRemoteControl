@@ -1,38 +1,25 @@
 /**
- * Project ElteRemoteControl
+ * Project ElteRemoteControlLib
  * @author Zsolt German
  * @version 0.1
  */
 
+#include "ScreenScanner/ColorConverter.h"
 
-#include "ColorConverter.h"
+namespace ElteRemoteControlLib {
+namespace NS_ScreenScanner {
 
-/**
- * ColorConverter implementation
- */
-
-
-/**
- * @param color
- * @return uint32
- */
-static uint32 ColorConverter::toValue(uint8[] color) {
-    return null;
+uint32 ColorConverter::toValue(uint8 color[3]) {
+	return 0;
 }
 
-/**
- * @param value
- * @return uint8[]
- */
-static uint8[] ColorConverter::toColor(uint32 value) {
-    return null;
+uint8* ColorConverter::toColor(uint32 value) {
+	return nullptr;
 }
 
-/**
- * @param value
- * @param size
- * @return uint8*
- */
-static uint8* ColorConverter::toColors(uint32* value, uint size) {
-    return null;
+uint8* ColorConverter::toColors(uint32* value, unsigned int size) {
+	return nullptr;
+}
+
+}
 }
