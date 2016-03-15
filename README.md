@@ -2,7 +2,7 @@ This document writes how to use these repository.
 The development is just started, and this informations will extended later.
 
 # UML
-This is the directory where the UML of the project is stored.
+This is the directory where the UML of the project is stored. It is *created with* **StarUML**.
 
 Description of files and directories:
 - **ElteRemoteControl.uml** file contains all the diagrams.
