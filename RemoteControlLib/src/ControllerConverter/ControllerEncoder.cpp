@@ -15,8 +15,8 @@ uint8* ControllerEncoder::getData(const Controller2DPositionState& state) {
 			getHigherValue(state.positionY), getLowerValue(state.positionY) };
 }
 uint8* ControllerEncoder::getData(const ControllerButtonState& state) {
-	return new uint8[3] { state.getControllerType(), state.controller,
-			state.pressed ? (uint8) 1 : (uint8) 0 };
+	return new uint8[3] { state.getControllerType(), state.controller, bool2num(
+			state.pressed) };
 }
 uint8* ControllerEncoder::getData(const ControllerShiftingState& state) {
 	const uint16 unsignedShifting = getUnsignedValue(state.shifting);
@@ -24,14 +24,17 @@ uint8* ControllerEncoder::getData(const ControllerShiftingState& state) {
 			getHigherValue(unsignedShifting), getLowerValue(unsignedShifting) };
 }
 
-uint16 ControllerEncoder::getUnsignedValue(const int16& data) {
-	return (uint16) (data + 0x100);
+uint8 ControllerEncoder::bool2num(const bool b) {
+	return b ? 1 : 0;
 }
-uint8 ControllerEncoder::getHigherValue(const uint16& data) {
-	return (uint8) ((data >> 8) & 0xFF);
+uint16 ControllerEncoder::getUnsignedValue(const int16 data) {
+	return data + 0x100;
 }
-uint8 ControllerEncoder::getLowerValue(const uint16& data) {
-	return (uint8) (data & 0xFF);
+uint8 ControllerEncoder::getHigherValue(const uint16 data) {
+	return (data >> 8) & 0xFF;
+}
+uint8 ControllerEncoder::getLowerValue(const uint16 data) {
+	return data & 0xFF;
 }
 
 }

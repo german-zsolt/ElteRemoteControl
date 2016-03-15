@@ -20,8 +20,9 @@ public:
 	static unique_ptr<ControllerState> getState(const uint8* const data);
 
 private:
-	static int16 getSignedValue(const uint16& data);
-	static uint16 getValue(const uint8& higherValue, const uint8& lowerValue);
+	static bool num2bool(const uint8 num);
+	static int16 getSignedValue(const uint16 data);
+	static uint16 getValue(const uint8 higherValue, const uint8 lowerValue);
 };
 
 }

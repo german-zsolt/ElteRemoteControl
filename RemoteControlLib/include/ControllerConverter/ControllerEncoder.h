@@ -24,9 +24,10 @@ public:
 	static uint8* getData(const ControllerShiftingState& state);
 
 private:
-	static uint16 getUnsignedValue(const int16& data);
-	static uint8 getHigherValue(const uint16& data);
-	static uint8 getLowerValue(const uint16& data);
+	static uint8 bool2num(const bool b);
+	static uint16 getUnsignedValue(const int16 data);
+	static uint8 getHigherValue(const uint16 data);
+	static uint8 getLowerValue(const uint16 data);
 };
 
 }
