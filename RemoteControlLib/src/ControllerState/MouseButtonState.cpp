@@ -9,9 +9,5 @@
 namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
-uint8 MouseButtonState::getControllerType() const {
-	return 3;
-}
-
 }
 }

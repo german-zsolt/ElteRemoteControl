@@ -14,10 +14,14 @@ namespace NS_ControllerState {
 
 class MousePositionState: public Controller2DPositionState {
 public:
-	uint8 getControllerType() const;
+	static const uint8 CONTROLLER_TYPE = 4;
+	uint8 getControllerType() const {
+		return CONTROLLER_TYPE;
+	}
 
-	MousePositionState(const uint8 controller, const uint16 position[2]) :
-			Controller2DPositionState(controller, position) {
+	MousePositionState(const uint8 controller, const uint16 positionX,
+			const uint16 positionY) :
+			Controller2DPositionState(controller, positionX, positionY) {
 	}
 };
 

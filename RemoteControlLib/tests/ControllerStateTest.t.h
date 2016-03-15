@@ -60,7 +60,7 @@ public:
 		runTestControllerShiftingState<MouseScrollState>(5, 2, 127);
 	}
 private:
-	bool assertControllerState(const ControllerState& o,
+	void assertControllerState(const ControllerState& o,
 			const uint8 controllerType, const uint8 controller) {
 		TS_ASSERT_EQUALS(o.getControllerType(), controllerType);
 		TS_ASSERT_EQUALS(o.controller, controller);
@@ -68,11 +68,11 @@ private:
 	template<typename T> void runTestController2DPositionState(
 			const uint8 controllerType, const uint8 controller,
 			const uint16 positionX, const uint16 positionY) {
-		const Controller2DPositionState& o = T(controller, new uint16[2] {
-				positionX, positionY });
+		const Controller2DPositionState& o = T(controller, positionX,
+				positionY);
 		assertControllerState(o, controllerType, controller);
-		TS_ASSERT_EQUALS(o.position[0], positionX);
-		TS_ASSERT_EQUALS(o.position[1], positionY);
+		TS_ASSERT_EQUALS(o.positionX, positionX);
+		TS_ASSERT_EQUALS(o.positionY, positionY);
 	}
 	template<typename T> void runTestControllerButtonState(
 			const uint8 controllerType, const uint8 controller,

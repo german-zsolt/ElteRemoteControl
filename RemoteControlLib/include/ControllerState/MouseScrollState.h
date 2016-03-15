@@ -14,7 +14,10 @@ namespace NS_ControllerState {
 
 class MouseScrollState: public ControllerShiftingState {
 public:
-	uint8 getControllerType() const;
+	static const uint8 CONTROLLER_TYPE = 5;
+	uint8 getControllerType() const {
+		return CONTROLLER_TYPE;
+	}
 
 	MouseScrollState(const uint8 controller, const int16 shifting) :
 		ControllerShiftingState(controller, shifting) {

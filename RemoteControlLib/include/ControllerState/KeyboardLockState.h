@@ -14,7 +14,10 @@ namespace NS_ControllerState {
 
 class KeyboardLockState: public ControllerButtonState {
 public:
-	uint8 getControllerType() const;
+	static const uint8 CONTROLLER_TYPE = 2;
+	uint8 getControllerType() const {
+		return CONTROLLER_TYPE;
+	}
 
 	KeyboardLockState(const uint8 controller, const bool pressed) :
 			ControllerButtonState(controller, pressed) {

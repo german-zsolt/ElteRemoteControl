@@ -19,6 +19,7 @@ public:
 	ControllerShiftingState(const uint8 controller, const int16 shifting) :
 			ControllerState(controller), shifting(shifting) {
 	}
+	uint8* getData() const;
 };
 
 }

@@ -21,6 +21,7 @@ public:
 	}
 
 	virtual uint8 getControllerType() const = 0;
+	virtual uint8* getData() const = 0;
 	virtual ~ControllerState() {
 	}
 };
