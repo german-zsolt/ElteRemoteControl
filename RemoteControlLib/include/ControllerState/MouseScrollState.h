@@ -13,7 +13,12 @@ namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
 class MouseScrollState: public ControllerShiftingState {
-	virtual uint8 getControllerType();
+public:
+	uint8 getControllerType() const;
+
+	MouseScrollState(const uint8 controller, const int16 shifting) :
+		ControllerShiftingState(controller, shifting) {
+	}
 };
 
 }

@@ -14,7 +14,11 @@ namespace NS_ControllerState {
 
 class ControllerShiftingState: public ControllerState {
 public:
-	int16 shifting;
+	const int16 shifting;
+
+	ControllerShiftingState(const uint8 controller, const int16 shifting) :
+			ControllerState(controller), shifting(shifting) {
+	}
 };
 
 }

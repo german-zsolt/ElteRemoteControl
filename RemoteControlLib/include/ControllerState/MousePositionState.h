@@ -13,7 +13,12 @@ namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
 class MousePositionState: public Controller2DPositionState {
-	virtual uint8 getControllerType();
+public:
+	uint8 getControllerType() const;
+
+	MousePositionState(const uint8 controller, const uint16 position[2]) :
+			Controller2DPositionState(controller, position) {
+	}
 };
 
 }

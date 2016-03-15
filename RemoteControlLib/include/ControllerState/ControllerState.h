@@ -14,10 +14,15 @@ namespace NS_ControllerState {
 
 class ControllerState {
 public:
-	uint8 controller;
+	const uint8 controller;
 
-	virtual uint8 getControllerType() = 0;
-	virtual ~ControllerState();
+	ControllerState(const uint8 controller) :
+			controller(controller) {
+	}
+
+	virtual uint8 getControllerType() const = 0;
+	virtual ~ControllerState() {
+	}
 };
 
 }

@@ -13,7 +13,12 @@ namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
 class KeyboardLockState: public ControllerButtonState {
-	virtual uint8 getControllerType();
+public:
+	uint8 getControllerType() const;
+
+	KeyboardLockState(const uint8 controller, const bool pressed) :
+			ControllerButtonState(controller, pressed) {
+	}
 };
 
 }

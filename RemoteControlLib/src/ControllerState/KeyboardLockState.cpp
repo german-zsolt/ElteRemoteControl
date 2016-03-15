@@ -9,7 +9,7 @@
 namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
-uint8 KeyboardLockState::getControllerType() {
+uint8 KeyboardLockState::getControllerType() const {
 	return 2;
 }
 

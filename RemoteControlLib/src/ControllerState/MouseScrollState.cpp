@@ -9,7 +9,7 @@
 namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
-uint8 MouseScrollState::getControllerType() {
+uint8 MouseScrollState::getControllerType() const {
 	return 5;
 }
 

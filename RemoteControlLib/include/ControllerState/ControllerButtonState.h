@@ -14,7 +14,11 @@ namespace NS_ControllerState {
 
 class ControllerButtonState: public ControllerState {
 public:
-	bool pressed;
+	const bool pressed;
+
+	ControllerButtonState(const uint8 controller, const bool pressed) :
+			ControllerState(controller), pressed(pressed) {
+	}
 };
 
 }

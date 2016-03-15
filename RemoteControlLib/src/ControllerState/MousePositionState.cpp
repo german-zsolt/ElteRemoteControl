@@ -9,7 +9,7 @@
 namespace ElteRemoteControlLib {
 namespace NS_ControllerState {
 
-uint8 MousePositionState::getControllerType() {
+uint8 MousePositionState::getControllerType() const {
 	return 4;
 }
 
