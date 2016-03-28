@@ -51,6 +51,7 @@ test_obj = test_dir + 'obj/'
 release_project = release_dir + project_name
 debug_project = debug_dir + project_name
 test_project = test_dir + project_name
+test_exe_project = test_dir + project_name + "Test"
 
 
 
@@ -97,7 +98,7 @@ else:
   # Create static library for unit testing.
   test_lib = env_debug.StaticLibrary(test_project, debug_sources)
   env_debug.Append(LIBS=test_lib)
-  test_exe = env_debug.CxxTest(test_sources)
+  test_exe = env_debug.CxxTest(test_exe_project, test_sources)
 
   # Build the 'release' library, this will stripped from debug symbols.
   release_lib = env_release.SharedLibrary(release_project, release_sources)
