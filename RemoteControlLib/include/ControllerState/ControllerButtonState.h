@@ -19,7 +19,7 @@ public:
 	ControllerButtonState(const uint8 controller, const bool pressed) :
 			ControllerState(controller), pressed(pressed) {
 	}
-	uint8* getData() const;
+	unique_ptr<uint8[]> getData() const;
 };
 
 }

@@ -19,9 +19,9 @@ using namespace NS_ControllerState;
 
 class ControllerEncoder {
 public:
-	static uint8* getData(const Controller2DPositionState& state);
-	static uint8* getData(const ControllerButtonState& state);
-	static uint8* getData(const ControllerShiftingState& state);
+	static unique_ptr<uint8[]> getData(const Controller2DPositionState& state);
+	static unique_ptr<uint8[]> getData(const ControllerButtonState& state);
+	static unique_ptr<uint8[]> getData(const ControllerShiftingState& state);
 
 private:
 	static uint8 bool2num(const bool b);

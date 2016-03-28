@@ -9,19 +9,19 @@
 namespace ElteRemoteControlLib {
 namespace NS_ControllerConverter {
 
-uint8* ControllerEncoder::getData(const Controller2DPositionState& state) {
-	return new uint8[6] { state.getControllerType(), state.controller,
+unique_ptr<uint8[]> ControllerEncoder::getData(const Controller2DPositionState& state) {
+	return unique_ptr<uint8[]>(new uint8[6] { state.getControllerType(), state.controller,
 			getHigherValue(state.positionX), getLowerValue(state.positionX),
-			getHigherValue(state.positionY), getLowerValue(state.positionY) };
+			getHigherValue(state.positionY), getLowerValue(state.positionY) });
 }
-uint8* ControllerEncoder::getData(const ControllerButtonState& state) {
-	return new uint8[3] { state.getControllerType(), state.controller, bool2num(
-			state.pressed) };
+unique_ptr<uint8[]> ControllerEncoder::getData(const ControllerButtonState& state) {
+	return unique_ptr<uint8[]>(new uint8[3] { state.getControllerType(), state.controller, bool2num(
+			state.pressed) });
 }
-uint8* ControllerEncoder::getData(const ControllerShiftingState& state) {
+unique_ptr<uint8[]> ControllerEncoder::getData(const ControllerShiftingState& state) {
 	const uint16 unsignedShifting = getUnsignedValue(state.shifting);
-	return new uint8[4] { state.getControllerType(), state.controller,
-			getHigherValue(unsignedShifting), getLowerValue(unsignedShifting) };
+	return unique_ptr<uint8[]>(new uint8[4] { state.getControllerType(), state.controller,
+			getHigherValue(unsignedShifting), getLowerValue(unsignedShifting) });
 }
 
 uint8 ControllerEncoder::bool2num(const bool b) {

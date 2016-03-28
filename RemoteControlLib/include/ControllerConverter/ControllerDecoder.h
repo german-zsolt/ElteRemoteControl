@@ -17,7 +17,7 @@ using namespace NS_ControllerState;
 
 class ControllerDecoder {
 public:
-	static unique_ptr<ControllerState> getState(const uint8* const data);
+	static unique_ptr<ControllerState> getState(const uint8 data[]);
 
 private:
 	static bool num2bool(const uint8 num);

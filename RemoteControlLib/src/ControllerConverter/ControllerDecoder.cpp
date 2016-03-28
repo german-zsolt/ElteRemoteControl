@@ -15,7 +15,7 @@ namespace ElteRemoteControlLib {
 namespace NS_ControllerConverter {
 
 unique_ptr<ControllerState> ControllerDecoder::getState(
-		const uint8* const data) {
+		const uint8 data[]) {
 	switch (data[0]) {
 	case KeyboardButtonState::CONTROLLER_TYPE:
 		return unique_ptr < KeyboardButtonState

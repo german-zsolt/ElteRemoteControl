@@ -7,6 +7,7 @@
 #ifndef _CONTROLLERSTATE_H
 #define _CONTROLLERSTATE_H
 
+#include <memory>
 #include "General/GeneralTypes.h"
 
 namespace ElteRemoteControlLib {
@@ -21,7 +22,7 @@ public:
 	}
 
 	virtual uint8 getControllerType() const = 0;
-	virtual uint8* getData() const = 0;
+	virtual unique_ptr<uint8[]> getData() const = 0;
 	virtual ~ControllerState() {
 	}
 };

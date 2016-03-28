@@ -22,7 +22,7 @@ public:
 			ControllerState(controller), positionX(positionX), positionY(
 					positionY) {
 	}
-	uint8* getData() const;
+	unique_ptr<uint8[]> getData() const;
 };
 
 }

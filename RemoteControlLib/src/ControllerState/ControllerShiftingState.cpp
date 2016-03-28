@@ -12,7 +12,7 @@ namespace NS_ControllerState {
 
 using namespace NS_ControllerConverter;
 
-uint8* ControllerShiftingState::getData() const {
+unique_ptr<uint8[]> ControllerShiftingState::getData() const {
 	return ControllerEncoder::getData(*this);
 }
 

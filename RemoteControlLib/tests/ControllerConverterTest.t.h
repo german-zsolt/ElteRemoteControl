@@ -92,7 +92,8 @@ private:
 		TS_ASSERT_EQUALS(a.shifting, b.shifting);
 	}
 	unique_ptr<ControllerState> encodeThenDecode(const ControllerState& state) {
-		return ControllerDecoder::getState(state.getData());
+		unique_ptr<uint8[]> data = state.getData();
+		return ControllerDecoder::getState(data.get());
 	}
 };
 
