@@ -42,13 +42,21 @@ public:
 		time_duration duration(time_end - time_start);
 		TS_ASSERT_LESS_THAN(duration.total_milliseconds(), 5000);
 	}
-	void testScreenPosition() {
+	void testScreenLowBytes() {
 		Screen image(2, 14, 7, 4);
 		ScreenDiff diff(4, 15, 3, 2, 0);
 		const uint32 expected[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 101, 102, 103,
 				13, 14, 15, 16, 104, 105, 106, 20, 21, 22, 23, 24, 25, 26, 27,
 				28 };
 		assertScreen(image, diff, 1, 101, expected);
+	}
+	void testScreenHighBytes() {
+		Screen image(2, 14, 7, 4);
+		ScreenDiff diff(4, 15, 3, 2, 8);
+		const uint32 expected[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0x10A, 0x20B,
+				0x30C, 13, 14, 15, 16, 0x411, 0x512, 0x613, 20, 21, 22, 23, 24,
+				25, 26, 27, 28 };
+		assertScreen(image, diff, 1, 1, expected);
 	}
 private:
 	uint8 colorBuffer[3] = { 0, 0, 0 };
