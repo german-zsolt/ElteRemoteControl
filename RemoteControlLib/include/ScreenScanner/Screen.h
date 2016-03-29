@@ -7,16 +7,27 @@
 #ifndef _SCREEN_H
 #define _SCREEN_H
 
-#include "General/GeneralTypes.h"
+#include "ScreenScanner/IRect.h"
+#include "ScreenScanner/ScreenDiff.h"
 
 namespace ElteRemoteControlLib {
 namespace NS_ScreenScanner {
 
-class Screen {
+class Screen: public IRect {
 public:
-	uint16 position[2];
-	uint16 size[2];
-	uint32* image;
+	uint32* const image;
+
+	void addDiff(const ScreenDiff& diff);
+
+	Screen(const uint16 positionX, const uint16 positionY, const uint16 sizeX,
+			const uint16 sizeY) :
+			IRect(positionX, positionY, sizeX, sizeY), image(
+					new uint32[sizeX * sizeY]) {
+	}
+
+	~Screen() {
+		delete[] image;
+	}
 };
 
 }
