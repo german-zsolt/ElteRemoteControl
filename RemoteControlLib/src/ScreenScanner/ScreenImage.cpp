@@ -4,13 +4,13 @@
  * @version 0.1
  */
 
-#include "ScreenScanner/Screen.h"
+#include <ScreenScanner/ScreenImage.h>
 #include <algorithm>
 
 namespace ElteRemoteControlLib {
 namespace NS_ScreenScanner {
 
-void Screen::addDiff(const ScreenDiff& diff) {
+void ScreenImage::addDiff(const ScreenDiff& diff) {
 	const uint16 startX = max(this->positionX, diff.positionX);
 	const uint16 startY = max(this->positionY, diff.positionY);
 	const uint16 endX = min(this->positionX + this->sizeX,

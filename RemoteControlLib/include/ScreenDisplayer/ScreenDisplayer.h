@@ -8,8 +8,8 @@
 #define _SCREENDISPLAYER_H
 
 #include "General/GeneralTypes.h"
-#include "ScreenScanner/Screen.h"
 #include "ScreenScanner/ScreenDiff.h"
+#include "ScreenScanner/ScreenImage.h"
 
 namespace ElteRemoteControlLib {
 namespace NS_ScreenDisplayer {
@@ -21,7 +21,7 @@ public:
 	void addDiff(ScreenDiff diff);
 private:
 	uint8 monitorNumber;
-	Screen actualImage;
+	ScreenImage actualImage;
 };
 
 }

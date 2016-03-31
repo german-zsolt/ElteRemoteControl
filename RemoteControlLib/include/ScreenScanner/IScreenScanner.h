@@ -8,15 +8,15 @@
 #define _ISCREENSCANNER_H
 
 #include <memory>
-#include "Screen.h"
 #include "ScreenDiff.h"
+#include "ScreenScanner/ScreenImage.h"
 
 namespace ElteRemoteControlLib {
 namespace NS_ScreenScanner {
 
 class IScreenScanner {
 public:
-	virtual shared_ptr<Screen> getActualImage() = 0;
+	virtual shared_ptr<ScreenImage> getActualImage() = 0;
 	virtual shared_ptr<ScreenDiff> getDiff() = 0;
 };
 

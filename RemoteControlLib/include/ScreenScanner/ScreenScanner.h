@@ -7,8 +7,9 @@
 #ifndef _SCREENSCANNER_H
 #define _SCREENSCANNER_H
 
+#include <X11/Xlib.h>
 #include "General/GeneralTypes.h"
-#include "IScreenScanner.h"
+#include "ScreenScanner/IScreenScanner.h"
 #include "ScreenSender/ScreenSender.h"
 
 namespace ElteRemoteControlLib {
@@ -18,13 +19,18 @@ using namespace NS_ScreenSender;
 
 class ScreenScanner {
 public:
-	ScreenScanner(shared_ptr<ScreenSender> sender);
-	shared_ptr<Screen> getActualImage();
-	shared_ptr<ScreenDiff> getDiff();
+	// TODO: later
+	//ScreenScanner(shared_ptr<ScreenSender> sender);
+	ScreenScanner(const string displayName) :
+			displayName(displayName) {
+	}
+
+	unique_ptr<ScreenImage> getActualImage();
+	unique_ptr<ScreenDiff> getDiff();
 private:
-	shared_ptr<ScreenSender> sender;
-	uint8 monitorNumber;
-	shared_ptr<Screen> remoteImage;
+	const string displayName;
+	unique_ptr<ScreenSender> sender;
+	unique_ptr<ScreenImage> remoteImage;
 };
 
 }

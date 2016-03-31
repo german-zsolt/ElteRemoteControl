@@ -8,12 +8,18 @@
 #define _SCREENSCANNER_TEST_H
 
 #include <cxxtest/TestSuite.h>
+#include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <boost/gil/extension/io/png_io.hpp>
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #include "ScreenScanner/ColorConverter.h"
-#include "ScreenScanner/Screen.h"
 #include "ScreenScanner/ScreenDiff.h"
-#include "boost/date_time/posix_time/posix_time_types.hpp" //no i/o just types
+#include "ScreenScanner/ScreenImage.h"
+#include "ScreenScanner/ScreenScanner.h"
 
 using namespace boost::posix_time;
+using namespace boost::gil;
 using namespace ElteRemoteControlLib;
 using namespace ElteRemoteControlLib::NS_ScreenScanner;
 
@@ -43,7 +49,7 @@ public:
 		TS_ASSERT_LESS_THAN(duration.total_milliseconds(), 5000);
 	}
 	void testScreenLowBytes() {
-		Screen image(2, 14, 7, 4);
+		ScreenImage image(2, 14, 7, 4);
 		ScreenDiff diff(4, 15, 3, 2, 0);
 		const uint32 expected[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 101, 102, 103,
 				13, 14, 15, 16, 104, 105, 106, 20, 21, 22, 23, 24, 25, 26, 27,
@@ -51,12 +57,37 @@ public:
 		assertScreen(image, diff, 1, 101, expected);
 	}
 	void testScreenHighBytes() {
-		Screen image(2, 14, 7, 4);
+		ScreenImage image(2, 14, 7, 4);
 		ScreenDiff diff(4, 15, 3, 2, 8);
 		const uint32 expected[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0x10A, 0x20B,
 				0x30C, 13, 14, 15, 16, 0x411, 0x512, 0x613, 20, 21, 22, 23, 24,
 				25, 26, 27, 28 };
 		assertScreen(image, diff, 1, 1, expected);
+	}
+	void testScreenScannerScreenshot() {
+		unique_ptr<ScreenScanner> screenScanner = unique_ptr < ScreenScanner
+				> (new ScreenScanner(":0"));
+		unique_ptr<ScreenImage> screen = screenScanner->getActualImage();
+		const uint32 size = screen->getSize();
+
+		// Realistic size
+		TS_ASSERT_LESS_THAN_EQUALS(640, screen->sizeX);
+		TS_ASSERT_LESS_THAN_EQUALS(480, screen->sizeY);
+		// At least has two colors
+		TS_ASSERT(hasTwoDifferentColors(*screen));
+
+		unique_ptr<uint8[]> colors(new uint8[3 * size]);
+		ColorConverter::toColors(screen->image, colors.get(), size);
+		uint32 imageIndex = -1;
+		uint8 redPixels[size], greenPixels[size], bluePixels[size];
+		for (uint32 pixelIndex = 0; pixelIndex < size; ++pixelIndex) {
+			redPixels[pixelIndex] = colors[++imageIndex];
+			greenPixels[pixelIndex] = colors[++imageIndex];
+			bluePixels[pixelIndex] = colors[++imageIndex];
+		}
+		rgb8c_planar_view_t view = planar_rgb_view(screen->sizeX, screen->sizeY,
+				redPixels, greenPixels, bluePixels, screen->sizeX);
+		png_write_view("/tmp/test_screenshot.png", view);
 	}
 private:
 	uint8 colorBuffer[3] = { 0, 0, 0 };
@@ -89,7 +120,7 @@ private:
 					ColorConverter::toValue(red, green, blue + 1));
 		}
 	}
-	void assertScreen(Screen& image, const ScreenDiff& diff,
+	void assertScreen(ScreenImage& image, const ScreenDiff& diff,
 			const uint32 startImageValue, const uint32 startDiffValue,
 			const uint32* expected) {
 		const uint32 imageSize = image.getSize();
@@ -102,6 +133,15 @@ private:
 		}
 		image.addDiff(diff);
 		assertArrays(image.image, expected, image.getSize());
+	}
+	bool hasTwoDifferentColors(const ScreenImage& screen) {
+		const uint32 firstColor = screen.image[0];
+		for (uint32 i = 1; i < screen.getSize(); ++i) {
+			if (firstColor != screen.image[i]) {
+				return true;
+			}
+		}
+		return false;
 	}
 };
 
