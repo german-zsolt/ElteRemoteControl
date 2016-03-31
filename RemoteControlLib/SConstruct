@@ -73,7 +73,7 @@ else:
   cxxtest = imp.load_source('cxxtest', 'build_tools/SCons/cxxtest.py')
 
   # Configure common environment settings
-  env_debug = Environment(CPPDEFINES = cppdefines, CPPPATH=['include'])
+  env_debug = Environment(CPPDEFINES = cppdefines, CPPPATH=['include'], LIBS=['png', 'X11', 'Xext'])
   #env_debug.Append(CCFLAGS=['-std=c++11', '-Wall', '-Wextra', '-Weffc++', '-Werror', '-O3'])
   env_debug.Append(CCFLAGS=['-std=c++11', '-Wall', '-Werror', '-O3'])
   env_release = env_debug.Clone()
@@ -102,7 +102,7 @@ else:
 
   # Create static library for unit testing.
   test_lib = env_debug.StaticLibrary(test_project, debug_sources)
-  env_debug.Append(LIBS=test_lib)
+  env_debug.Prepend(LIBS=test_lib)
   test_exe = env_debug.CxxTest(test_exe_project, test_sources)
 
   # Build the 'release' library, this will stripped from debug symbols.
