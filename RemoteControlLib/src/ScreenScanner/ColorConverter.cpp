@@ -9,6 +9,11 @@
 namespace ElteRemoteControlLib {
 namespace NS_ScreenScanner {
 
+uint32 ColorConverter::toValue(const uint32 rgbValue) {
+	return toValue((uint8) (rgbValue >> 16), (uint8) (rgbValue >> 8),
+			(uint8) rgbValue);
+}
+
 uint32 ColorConverter::toValue(const uint8 colorRed, const uint8 colorGreen,
 		const uint8 colorBlue) {
 	uint32 value = 0;
