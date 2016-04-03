@@ -19,8 +19,6 @@ namespace NS_ScreenScanner {
  */
 
 unique_ptr<ScreenImage> ScreenScanner::getActualImage() {
-	Display* display = XOpenDisplay(displayName.c_str());
-	Window root = DefaultRootWindow(display);
 	XWindowAttributes gwa;
 	XGetWindowAttributes(display, root, &gwa);
 	const int width = gwa.width;
@@ -39,8 +37,6 @@ unique_ptr<ScreenImage> ScreenScanner::getActualImage() {
 					XGetPixel(image, x, y));
 		}
 	}
-
-	XCloseDisplay(display);
 
 	return screen_ptr;
 }

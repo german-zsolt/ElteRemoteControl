@@ -67,7 +67,15 @@ public:
 	void testScreenScannerScreenshot() {
 		unique_ptr<ScreenScanner> screenScanner = unique_ptr < ScreenScanner
 				> (new ScreenScanner(":0"));
+
+		ptime time_start(microsec_clock::local_time());
+
 		unique_ptr<ScreenImage> screen = screenScanner->getActualImage();
+
+		ptime time_end(microsec_clock::local_time());
+		time_duration duration(time_end - time_start);
+		TS_ASSERT_LESS_THAN(duration.total_milliseconds(), 20);
+
 		const uint32 size = screen->getSize();
 
 		// Realistic size

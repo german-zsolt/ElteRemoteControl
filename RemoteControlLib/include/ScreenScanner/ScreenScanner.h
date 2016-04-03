@@ -23,6 +23,11 @@ public:
 	//ScreenScanner(shared_ptr<ScreenSender> sender);
 	ScreenScanner(const string displayName) :
 			displayName(displayName) {
+		display = XOpenDisplay(displayName.c_str());
+		root = DefaultRootWindow(display);
+	}
+	~ScreenScanner() {
+		XCloseDisplay(display);
 	}
 
 	unique_ptr<ScreenImage> getActualImage();
@@ -31,6 +36,9 @@ private:
 	const string displayName;
 	unique_ptr<ScreenSender> sender;
 	unique_ptr<ScreenImage> remoteImage;
+
+	Display* display;
+	Window root;
 };
 
 }
