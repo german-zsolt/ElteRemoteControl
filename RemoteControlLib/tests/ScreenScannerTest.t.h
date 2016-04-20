@@ -8,6 +8,7 @@
 #define _SCREENSCANNER_TEST_H
 
 #include <cxxtest/TestSuite.h>
+#include <cstdio>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/gil/extension/io/png_io.hpp>
 #include <X11/X.h>
@@ -29,19 +30,31 @@ public:
 		ptime time_start(microsec_clock::local_time());
 
 #ifdef TEST_ALL_VALUES
-		for (uint16 red = 0; red < 256; ++red) {
-			for (uint16 green = 0; green < 256; ++green) {
-				for (uint16 blue = 0; blue < 256; ++blue) {
-					assertColor(red, green, blue);
-				}
-			}
+		for (uint32 color = 0; color < 0x1000000; ++color) {
+			assertColor(color);
 		}
 #else
-		assertColor(0, 0, 0);
-		assertColor(128, 128, 128);
-		assertColor(255, 255, 255);
-		assertColor(1, 156, 234);
-		assertColor(234, 156, 1);
+		// minimum, maximum, middle values
+		assertColor(0x000000);
+		assertColor(0x808080);
+		assertColor(0xFFFFFF);
+		// max bytes
+		assertColor(0x0000FF);
+		assertColor(0x00FF00);
+		assertColor(0xFF0000);
+		// increasing bytes, decreasing bytes
+		assertColor(0x019CEA);
+		assertColor(0xEA9C01);
+		// same bytes
+		assertColor(0x777777);
+		// one bigger byte
+		assertColor(0x777778);
+		assertColor(0x777877);
+		assertColor(0x787777);
+		// one lower byte
+		assertColor(0x777776);
+		assertColor(0x777677);
+		assertColor(0x767777);
 #endif
 
 		ptime time_end(microsec_clock::local_time());
@@ -65,8 +78,8 @@ public:
 		assertScreen(image, diff, 1, 1, expected);
 	}
 	void testScreenScannerScreenshot() {
-		unique_ptr<ScreenScanner> screenScanner = unique_ptr < ScreenScanner
-				> (new ScreenScanner(":0"));
+		unique_ptr<ScreenScanner> screenScanner = unique_ptr<ScreenScanner>(
+				new ScreenScanner(":0"));
 
 		ptime time_start(microsec_clock::local_time());
 
@@ -84,49 +97,45 @@ public:
 		// At least has two colors
 		TS_ASSERT(hasTwoDifferentColors(*screen));
 
-		unique_ptr<uint8[]> colors(new uint8[3 * size]);
+		unique_ptr<uint32[]> colors(new uint32[size]);
 		ColorConverter::toColors(screen->image, colors.get(), size);
-		uint32 imageIndex = -1;
+		uint32 imageIndex = 0;
 		uint8 redPixels[size], greenPixels[size], bluePixels[size];
 		for (uint32 pixelIndex = 0; pixelIndex < size; ++pixelIndex) {
-			redPixels[pixelIndex] = colors[++imageIndex];
-			greenPixels[pixelIndex] = colors[++imageIndex];
-			bluePixels[pixelIndex] = colors[++imageIndex];
+			redPixels[pixelIndex] = colors[imageIndex] >> 16 & 0xFF;
+			greenPixels[pixelIndex] = colors[imageIndex] >> 8 & 0xFF;
+			bluePixels[pixelIndex] = colors[imageIndex] & 0xFF;
+			++imageIndex;
 		}
 		rgb8c_planar_view_t view = planar_rgb_view(screen->sizeX, screen->sizeY,
 				redPixels, greenPixels, bluePixels, screen->sizeX);
 		png_write_view("/tmp/test_screenshot.png", view);
 	}
 private:
-	uint8 colorBuffer[3] = { 0, 0, 0 };
 	template<typename T> void assertArrays(const T* const a1, const T* const a2,
 			const uint32 size) {
 		for (uint32 i = 0; i < size; ++i) {
 			TS_ASSERT_EQUALS(a1[i], a2[i]);
 		}
 	}
-	void assertColor(const uint8 red, const uint8 green, const uint8 blue) {
-		uint32 value = ColorConverter::toValue(red, green, blue);
-
-		// Assert equals when deconverted
-		ColorConverter::toColor(value, colorBuffer, 0);
-		TS_ASSERT_EQUALS(colorBuffer[0], red);
-		TS_ASSERT_EQUALS(colorBuffer[1], green);
-		TS_ASSERT_EQUALS(colorBuffer[2], blue);
+	void assertColor(const uint32 color) {
+		const uint32 value = ColorConverter::toValue(color);
+		const uint32 decodedColor = ColorConverter::toColor(value);
+		TS_ASSERT_EQUALS(color, decodedColor);
 
 		// Assert bigger values
-		if (red < 255) {
-			TS_ASSERT_LESS_THAN(value,
-					ColorConverter::toValue(red + 1, green, blue));
+		if ((color & 0xFF) < 0xFF) {
+			assertColor(value, color + 1);
 		}
-		if (green < 255) {
-			TS_ASSERT_LESS_THAN(value,
-					ColorConverter::toValue(red, green + 1, blue));
+		if ((color & 0xFF00) < 0xFF00) {
+			assertColor(value, color + 0x100);
 		}
-		if (blue < 255) {
-			TS_ASSERT_LESS_THAN(value,
-					ColorConverter::toValue(red, green, blue + 1));
+		if (color < 0xFF0000) {
+			assertColor(value, color + 0x10000);
 		}
+	}
+	void assertColor(const uint value, const uint32 biggerRgb) {
+		TS_ASSERT_LESS_THAN(value, ColorConverter::toValue(biggerRgb));
 	}
 	void assertScreen(ScreenImage& image, const ScreenDiff& diff,
 			const uint32 startImageValue, const uint32 startDiffValue,

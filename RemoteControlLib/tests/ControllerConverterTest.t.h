@@ -26,7 +26,7 @@ using namespace ElteRemoteControlLib::NS_ControllerState;
 
 class ControllerConverterTest: public CxxTest::TestSuite {
 public:
-	void testKeyboardButtonStateFalse() {
+	void testKeyboardButtonState() {
 		assertEqualsControllerButtonState(KeyboardButtonState(0, false));
 	}
 	void testKeyboardButtonStateTrue() {

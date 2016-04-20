@@ -9,6 +9,10 @@ Help("""
     'scons release' to build the production program version.
     'scons -c' to clean project, so it will completely delete 'build' folder.
 
+  Parameters:
+    define=TOKEN              Add extra "#define TOKEN" like code for building.
+
+
   'scons' works same as 'scons debug', release version should build manually.
   The debug and release binaries differs only by debug symbols.
 
@@ -62,6 +66,10 @@ if GetOption('clean'):
     import shutil
     shutil.rmtree('build')
 else:
+  # Running parallel build by default
+  import psutil
+  SetOption('num_jobs', psutil.cpu_count())
+
   # Defined
   cppdefines = []
   for key, value in ARGLIST:

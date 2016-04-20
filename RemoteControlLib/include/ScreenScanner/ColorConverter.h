@@ -14,11 +14,10 @@ namespace NS_ScreenScanner {
 
 class ColorConverter {
 public:
-	static uint32 toValue(const uint32 rgbValue);
-	static uint32 toValue(const uint8 colorRed, const uint8 colorGreen,
-			const uint8 colorBlue);
-	static void toColor(const uint32 value, uint8 color[], const uint32 offset);
-	static void toColors(const uint32 values[], uint8 colors[], const uint32 size);
+	static uint32 toValue(const uint32 rgbColor);
+	static uint32 toColor(const uint32 value);
+	static void toColors(const uint32 values[], uint32 rgbColors[],
+			const uint32 size);
 };
 
 }

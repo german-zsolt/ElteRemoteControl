@@ -9,57 +9,32 @@
 namespace ElteRemoteControlLib {
 namespace NS_ScreenScanner {
 
-uint32 ColorConverter::toValue(const uint32 rgbValue) {
-	return toValue((uint8) (rgbValue >> 16), (uint8) (rgbValue >> 8),
-			(uint8) rgbValue);
-}
-
-uint32 ColorConverter::toValue(const uint8 colorRed, const uint8 colorGreen,
-		const uint8 colorBlue) {
-	uint32 value = 0;
-
-	uint8 bitIndex = 1;
-	uint32 bitShifting = 0;
-	for (char i = 8; i > 0; --i) {
-		value |= (colorBlue & bitIndex) << bitShifting;
-		++bitShifting;
-		value |= (colorGreen & bitIndex) << bitShifting;
-		++bitShifting;
-		value |= (colorRed & bitIndex) << bitShifting;
-		bitIndex <<= 1;
-		// Bit shifting not increased, because the bitIndex is increased
+uint32 ColorConverter::toValue(const uint32 rgbColor) {
+	uint32 remainingColor = rgbColor, value = 0;
+	for (uint8 j = 0; j < 3; ++j) {
+		for (uint8 i = j; i < 24; i += 3) {
+			value |= (remainingColor & 1) << i;
+			remainingColor >>= 1;
+		}
 	}
-
 	return value;
 }
 
-void ColorConverter::toColor(const uint32 value, uint8 color[],
-		const uint32 offset) {
-	uint8 colorRed = 0, colorGreen = 0, colorBlue = 0;
-
-	uint32 bitIndex = 1;
-	uint8 bitShifting = 0;
-	for (int i = 8; i > 0; --i) {
-		colorBlue |= (value & bitIndex) >> bitShifting;
-		bitIndex <<= 1;
-		++bitShifting;
-		colorGreen |= (value & bitIndex) >> bitShifting;
-		bitIndex <<= 1;
-		++bitShifting;
-		colorRed |= (value & bitIndex) >> bitShifting;
-		bitIndex <<= 1;
-		// Not increased the bit shifting, because in the next loop it should be higher bit
+uint32 ColorConverter::toColor(const uint32 value) {
+	uint32 remainingValue = value, color = 0;
+	for (uint8 j = 0; j < 8; ++j) {
+		for (uint8 i = j; i < 24; i += 8) {
+			color |= (remainingValue & 1) << i;
+			remainingValue >>= 1;
+		}
 	}
-
-	color[offset] = colorRed;
-	color[offset + 1] = colorGreen;
-	color[offset + 2] = colorBlue;
+	return color;
 }
 
-void ColorConverter::toColors(const uint32 values[], uint8 colors[],
+void ColorConverter::toColors(const uint32 values[], uint32 rgbColors[],
 		const uint32 size) {
-	for (uint32 i = 0, offset = 0; i < size; ++i, offset += 3) {
-		toColor(values[i], colors, offset);
+	for (uint32 i = 0; i < size; ++i) {
+		rgbColors[i] = toColor(values[i]);
 	}
 }
 

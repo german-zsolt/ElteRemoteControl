@@ -21,22 +21,26 @@ namespace NS_ScreenScanner {
 unique_ptr<ScreenImage> ScreenScanner::getActualImage() {
 	XWindowAttributes gwa;
 	XGetWindowAttributes(display, root, &gwa);
+	const int posX = gwa.x;
+	const int posY = gwa.y;
 	const int width = gwa.width;
 	const int height = gwa.height;
 
-	XImage *image = XGetImage(display, root, 0, 0, width, height, AllPlanes,
-	ZPixmap);
+	XImage *image = XGetImage(display, root, posX, posY, width, height,
+			AllPlanes, ZPixmap);
 
 	unique_ptr<ScreenImage> screen_ptr(
-			new ScreenImage(gwa.x, gwa.y, width, height));
+			new ScreenImage(posX, posY, width, height));
 	uint32* const screenImage = screen_ptr->image;
 	uint32 imageIndex = -1;
-	for (int y = 0; y < height; ++y) {
-		for (int x = 0; x < width; ++x) {
+	for (int y = posY; y < height; ++y) {
+		for (int x = posX; x < width; ++x) {
 			screenImage[++imageIndex] = ColorConverter::toValue(
 					XGetPixel(image, x, y));
 		}
 	}
+
+	XDestroyImage(image);
 
 	return screen_ptr;
 }
